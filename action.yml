@@ -1,24 +1,18 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: Cyclomatic TS Action
 
-# Add your action's branding here. This will appear on the GitHub Marketplace.
-branding:
-  icon: 'heart'
-  color: 'red'
+description: Cyclomatic-TS takes a temporary state in software construction by performing static analysis on the codebase and uploads it to storage for future analysis
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
-    required: true
-    default: '1000'
-
-# Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
+  working_directory:
+    description: target directory for analysis
+  sha:
+    description: SHA for commit
+  actor:
+    description: PR author
+  ecma_script_target:
+    description: ScriptTarget as defined in TypeScript (e.g. ES2018, ES2022, ESNext, etc.)
 
 runs:
-  using: node20
-  main: dist/index.js
+  using: 'node16'
+  main: 'dist/index.js'
+  post-if: 'success()'
