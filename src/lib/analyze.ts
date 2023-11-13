@@ -16,8 +16,8 @@ export async function analyze(
   const include = /\.ts$/
   const exclude = /\.d.ts|__mocks__|.test.ts/
   const sourceFiles = await getSourceFile(workingDirectory, include, exclude)
-  const report = await analyzeTypeScript(sourceFiles, scriptTarget)
-  const complexities = report.map((file) => {
+  const files = await analyzeTypeScript(sourceFiles, scriptTarget)
+  const complexities = files.map((file) => {
     core.info(JSON.stringify(file, undefined, 2))
     const functions = Object.keys(file.report)
     if (functions.length === 0) return 0
@@ -42,7 +42,7 @@ export async function analyze(
     sha: context.sha,
     ref: context.ref,
     repository: context.repo,
-    report,
+    files,
     dateUtc: new Date().toISOString()
   }
 
