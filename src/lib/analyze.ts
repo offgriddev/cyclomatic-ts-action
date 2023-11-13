@@ -1,4 +1,5 @@
 import ts from 'typescript'
+import * as core from '@actions/core'
 import { mkdir, writeFile } from 'fs/promises'
 import { getSourceFile } from './utils'
 import { analyzeTypeScript } from './harvest'
@@ -17,6 +18,7 @@ export async function analyze(
   const sourceFiles = await getSourceFile(workingDirectory, include, exclude)
   const report = await analyzeTypeScript(sourceFiles, scriptTarget)
   const complexities = report.map((file) => {
+    core.info(JSON.stringify(file, undefined, 2))
     const functions = Object.keys(file)
     const functionComplexity = functions.map(func => file.report[func].complexity)
 
