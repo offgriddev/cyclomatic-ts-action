@@ -5,10 +5,10 @@ description: Cyclomatic-TS takes a temporary state in software construction by p
 inputs:
   working_directory:
     description: target directory for analysis
-  sha:
-    description: SHA for commit
-  actor:
-    description: PR author
+  github_token:
+    description: GitHub Token
+  event:
+    description: GitHub Event
   ecma_script_target:
     description: ScriptTarget as defined in TypeScript (e.g. ES2018, ES2022, ESNext, etc.)
 
