@@ -7,17 +7,20 @@ import { analyze } from './lib/analyze'
  */
 export async function run(): Promise<void> {
   try {
-    const sha = core.getInput('sha')
-    const actor = core.getInput('actor')
     const workingDirectory = core.getInput('working_directory') || './'
-    // const workingDirectories = core.getInput('working_directories') || ''
+    const githubToken = core.getInput('github_token')
+    const event = JSON.parse(core.getInput('event'))
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const scriptTarget: any = core.getInput('ecma_script_target')
-
-    const filename = await analyze(sha, actor, workingDirectory, scriptTarget)
-
+    const filename = await analyze(
+      workingDirectory,
+      scriptTarget,
+      githubToken,
+      event
+    )
     core.setOutput('export_filename', filename)
   } catch (error) {
-    core.setFailed((error as Error).message)
+    core.setFailed(error as Error)
+    core.setFailed(`${(error as Error).stack}`)
   }
 }

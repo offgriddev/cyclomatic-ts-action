@@ -1,5 +1,5 @@
 import ts from 'typescript'
-import {readdir} from 'fs/promises'
+import { readdir } from 'fs/promises'
 import { calculateComplexity } from './complexity'
 import { Metric } from './types'
 
@@ -13,7 +13,7 @@ export async function analyzeTypeScriptProject(
     const result = await calculateComplexity(file, scriptTarget)
 
     const max = Object.values(result).reduce((prev, cur) => {
-      return prev > cur.complexity? prev : cur.complexity
+      return prev > cur ? prev : cur
     }, 0)
 
     metrics.push({
@@ -25,10 +25,16 @@ export async function analyzeTypeScriptProject(
   return metrics
 }
 
-export async function getSourceFolders(folders: string[], includedType: RegExp, excludedType: RegExp): Promise<string[]> {
+export async function getSourceFolders(
+  folders: string[],
+  includedType: RegExp,
+  excludedType: RegExp
+): Promise<string[]> {
   let files: string[] = []
   for (const folder of folders) {
-    files = files.concat(await getSourceFile(folder, includedType, excludedType))
+    files = files.concat(
+      await getSourceFile(folder, includedType, excludedType)
+    )
   }
   return files
 }
@@ -40,7 +46,7 @@ export async function getSourceFile(
 ): Promise<string[]> {
   let filePaths: string[] = []
   // get contents for folder
-  const paths = await readdir(folder, {withFileTypes: true})
+  const paths = await readdir(folder, { withFileTypes: true })
   // check if item is a directory
 
   for (const path of paths) {
