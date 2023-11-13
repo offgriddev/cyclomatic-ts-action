@@ -29,8 +29,8 @@ export async function printReport(report: any) {
     summary.addHeading(`File: ${file.file}\n`, 3)
     const mappedKeys = Object.keys(file.report).map(
       funcName => +file.report[funcName]
-    ) || [0]
-    const maxComplexity = Math.max(...mappedKeys)
+    )
+    const maxComplexity = mappedKeys ? Math.max(...mappedKeys) : 0
     const totalComplexity = mappedKeys.reduce((prev, cur) => +prev + +cur, 0)
 
     summary.addTable([
