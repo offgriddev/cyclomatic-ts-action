@@ -1,6 +1,6 @@
-import {readFile} from 'fs/promises'
-import ts, {NamedDeclaration} from 'typescript'
-import {isFunctionWithBody, getName} from './parse-ast'
+import { readFile } from 'fs/promises'
+import ts, { NamedDeclaration } from 'typescript'
+import { isFunctionWithBody, getName } from './parse-ast'
 
 const increasesComplexity = (node: ts.Node): boolean => {
   switch (node.kind) {
@@ -41,7 +41,7 @@ export function calculateFromSource(
       complexity = 1
       ts.forEachChild(node, cb)
       const name = getName(node as NamedDeclaration)
-      output[name] = {complexity}
+      output[name] = { complexity }
       complexity = old
     } else {
       if (increasesComplexity(node)) {

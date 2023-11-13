@@ -12,13 +12,13 @@ export type Player = {
 }
 
 export type Card = {
-    complexity: number;
-    key: string;
+  complexity: number
+  key: string
 }
 
 export type EstimateEvidence = {
-  total: number,
-  cards: Card[] 
+  total: number
+  cards: Card[]
 }
 
 export type PlayerCardAssignment = {

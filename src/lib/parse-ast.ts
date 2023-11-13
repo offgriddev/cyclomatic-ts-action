@@ -17,10 +17,10 @@ export function isFunctionWithBody(node: ts.Node): boolean {
 }
 
 export function getName(node: ts.NamedDeclaration): string {
-  const {name, pos, end} = node
+  const { name, pos, end } = node
   const key =
     name !== undefined && ts.isIdentifier(name)
       ? name.text
-      : JSON.stringify({pos, end})
+      : JSON.stringify({ pos, end })
   return key
 }

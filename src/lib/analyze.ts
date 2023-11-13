@@ -1,9 +1,9 @@
 import ts from 'typescript'
-import {mkdir, writeFile} from 'fs/promises'
-import {getSourceFile} from './utils'
-import {analyzeTypeScript} from './harvest'
-import {context} from '@actions/github'
-import {PushEvent, getPushDetails} from './github'
+import { mkdir, writeFile } from 'fs/promises'
+import { getSourceFile } from './utils'
+import { analyzeTypeScript } from './harvest'
+import { context } from '@actions/github'
+import { PushEvent, getPushDetails } from './github'
 
 export async function analyze(
   workingDirectory: string,
@@ -15,7 +15,7 @@ export async function analyze(
   const exclude = /\.d.ts|__mocks__|.test.ts/
   const sourceFiles = await getSourceFile(workingDirectory, include, exclude)
   const analysis = await analyzeTypeScript(sourceFiles, scriptTarget)
-  const complexities = analysis.map(({report}) => {
+  const complexities = analysis.map(({ report }) => {
     const functions = Object.keys(report)
     const functionComplexity = functions.map(func => report[func].complexity)
 
@@ -54,7 +54,7 @@ export async function analyze(
         ...pushBase,
         ...baseMetrics
       }
-    : {...prBase, ...baseMetrics}
+    : { ...prBase, ...baseMetrics }
   await mkdir(folder)
   await writeFile(filename, JSON.stringify(analytics, undefined, 2))
 
