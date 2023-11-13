@@ -57,9 +57,10 @@ jobs:
         uses: ./
         with:
           github_token: ${{ github.token }}
+          working_directory: src
           ecma_script_target: ES2021
           event: ${{ toJson(github.event) }}
 
       - name: Print Output
         id: output
-        run: echo "${{ steps.metrics.outputs.export_filename }}"
+        run: cat ${{ steps.metrics.outputs.export_filename }}
