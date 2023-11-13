@@ -21,7 +21,7 @@ export async function analyze(
     core.info(JSON.stringify(file, undefined, 2))
     const functions = Object.keys(file.report)
     if (functions.length === 0) return 0
-    const functionComplexity = functions.map(func => file.report[func].complexity)
+    const functionComplexity = functions.map(func => file.report[func])
 
     // axiom: the complexity of a module is the highest complexity of any of its functions
     const max = Object.values(functionComplexity).reduce((prev, cur) => {

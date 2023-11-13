@@ -13,7 +13,7 @@ export async function analyzeTypeScriptProject(
     const result = await calculateComplexity(file, scriptTarget)
 
     const max = Object.values(result).reduce((prev, cur) => {
-      return prev > cur.complexity ? prev : cur.complexity
+      return prev > cur ? prev : cur
     }, 0)
 
     metrics.push({

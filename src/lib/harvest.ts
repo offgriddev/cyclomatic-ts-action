@@ -3,7 +3,7 @@ import { calculateComplexity } from './complexity'
 
 type ComplexityResult = {
   file: string
-  report: Record<string, { complexity: number }>
+  report: Record<string, number>
 }
 // current support only ts
 export async function analyzeTypeScript(
