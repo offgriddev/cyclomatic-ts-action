@@ -20,6 +20,6 @@ export async function run(): Promise<void> {
     )
     core.setOutput('export_filename', filename)
   } catch (error) {
-    core.setFailed((error as Error).message)
+    core.setFailed(error as Error)
   }
 }
