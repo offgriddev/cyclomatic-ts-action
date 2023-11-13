@@ -19,7 +19,7 @@ export async function analyze(
   const report = await analyzeTypeScript(sourceFiles, scriptTarget)
   const complexities = report.map((file) => {
     core.info(JSON.stringify(file, undefined, 2))
-    const functions = Object.keys(file)
+    const functions = Object.keys(file.report)
     if (functions.length === 0) return 0
     const functionComplexity = functions.map(func => file.report[func].complexity)
 
