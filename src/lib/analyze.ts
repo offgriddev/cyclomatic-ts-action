@@ -4,6 +4,7 @@ import { getSourceFile } from './utils'
 import { analyzeTypeScript } from './harvest'
 import { context } from '@actions/github'
 import { PushEvent, getPushDetails } from './github'
+import { printReport } from './report'
 
 export async function analyze(
   workingDirectory: string,
@@ -55,6 +56,7 @@ export async function analyze(
         ...baseMetrics
       }
     : { ...prBase, ...baseMetrics }
+  await printReport(analytics)
   await mkdir(folder)
   await writeFile(filename, JSON.stringify(analytics, undefined, 2))
 

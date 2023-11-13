@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 
-export async function printReport(report) {
+export async function printReport(report: any) {
   const summary = core.summary.addHeading('Summary')
   summary.addTable([
     [
@@ -21,11 +21,11 @@ export async function printReport(report) {
         header: true
       }
     ],
-    [report.actor, report.sha, report.ref, report.totalComplexity.toString()]
+    [report.actor, report.sha, report.head, report.totalComplexity.toString()]
   ])
 
   summary.addHeading('Complexity Report', 2)
-  report.files.forEach(file => {
+  report.files.forEach((file: any) => {
     summary.addHeading(`File: ${file.file}\n`, 3)
     const mappedKeys = Object.keys(file.report).map(
       funcName => +file.report[funcName]
