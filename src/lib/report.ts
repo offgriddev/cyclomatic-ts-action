@@ -31,7 +31,7 @@ export async function printReport(report: any) {
       funcName => +file.report[funcName]
     )
     const maxComplexity = Math.max(...mappedKeys)
-    const totalComplexity = mappedKeys.reduce((prev, cur) => +prev + +cur)
+    const totalComplexity = mappedKeys.reduce((prev, cur) => +prev + +cur, 0)
 
     summary.addTable([
       [
