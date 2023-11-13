@@ -20,6 +20,7 @@ export async function analyze(
   const complexities = report.map((file) => {
     core.info(JSON.stringify(file, undefined, 2))
     const functions = Object.keys(file)
+    if (functions.length === 0) return 0
     const functionComplexity = functions.map(func => file.report[func].complexity)
 
     // axiom: the complexity of a module is the highest complexity of any of its functions
@@ -41,7 +42,7 @@ export async function analyze(
     sha: context.sha,
     ref: context.ref,
     repository: context.repo,
-    analysis: report,
+    report,
     dateUtc: new Date().toISOString()
   }
 
