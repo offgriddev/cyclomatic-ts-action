@@ -15,10 +15,10 @@ export async function analyze(
   const include = /\.ts$/
   const exclude = /\.d.ts|__mocks__|.test.ts/
   const sourceFiles = await getSourceFile(workingDirectory, include, exclude)
-  const analysis = await analyzeTypeScript(sourceFiles, scriptTarget)
-  const complexities = analysis.map(({ report }) => {
-    const functions = Object.keys(report)
-    const functionComplexity = functions.map(func => report[func].complexity)
+  const report = await analyzeTypeScript(sourceFiles, scriptTarget)
+  const complexities = report.map((file) => {
+    const functions = Object.keys(file)
+    const functionComplexity = functions.map(func => file.report[func].complexity)
 
     // axiom: the complexity of a module is the highest complexity of any of its functions
     const max = Object.values(functionComplexity).reduce((prev, cur) => {
@@ -39,7 +39,7 @@ export async function analyze(
     sha: context.sha,
     ref: context.ref,
     repository: context.repo,
-    analysis,
+    analysis: report,
     dateUtc: new Date().toISOString()
   }
 
