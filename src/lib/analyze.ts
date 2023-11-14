@@ -6,6 +6,7 @@ import { analyzeTypeScript } from './harvest'
 import { context } from '@actions/github'
 import { PushEvent, getPushDetails } from './github'
 import { printReport } from './report'
+import { existsSync } from 'fs'
 
 export async function analyze(
   workingDirectory: string,
@@ -33,8 +34,6 @@ export async function analyze(
    * Construct final model
    */
   const total = complexities.reduce((prev, cur) => +prev + +cur, 0)
-  const folder = 'complexity-assessment'
-  const filename = `${folder}/${context.sha}.json`
 
   // get the first commit in the event, which should be the merge commit
   const baseMetrics = {
@@ -60,7 +59,10 @@ export async function analyze(
       }
     : { ...prBase, ...baseMetrics }
   await printReport(analytics)
-  await mkdir(folder)
+  const folder = 'complexity-assessment'
+  const filename = `${folder}/${analytics.repository.repo}/${context.sha}-${analytics.actor}-infrastructure.json`
+  if (!existsSync(folder)) await mkdir(folder)
+  if (!existsSync(`${folder}/${analytics.repository.repo}`))
   await writeFile(filename, JSON.stringify(analytics, undefined, 2))
 
   return filename
